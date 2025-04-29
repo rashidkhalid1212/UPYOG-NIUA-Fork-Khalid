@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>API Docs</title>
+    <link href="/webjars/swagger-ui/3.23.11/swagger-ui.css" rel="stylesheet">
+</head>
+<body>
+<div id="swagger-ui"></div>
+
+<script src="/webjars/swagger-ui/3.23.11/swagger-ui-bundle.js"></script>
+<script src="/webjars/swagger-ui/3.23.11/swagger-ui-standalone-preset.js"></script>
+<script>
+    window.onload = function () {
+        const ui = SwaggerUIBundle({
+            urls: [
+                { url: "/ewaste-services/v2/api-docs", name: "Ewaste Service" },
+                { url: "/sv-services/v2/api-docs", name: "Street Vending Service" },
+                { url: "/adv-services/v2/api-docs", name: "Advertisement Service" },
+                { url: "/chb-services/v2/api-docs", name: "Community Hall Booking Service" },
+                { url: "/pet-services/v2/api-docs", name: "Pet Registration Service" }
+            ],
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            layout: "StandaloneLayout"
+        });
+    }
+</script>
+</body>
+</html>

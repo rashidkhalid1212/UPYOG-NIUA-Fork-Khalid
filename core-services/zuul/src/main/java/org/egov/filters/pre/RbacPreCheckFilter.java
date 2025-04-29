@@ -45,14 +45,19 @@ public class RbacPreCheckFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        if ((openEndpointsWhitelist.contains(getRequestURI())
-            || anonymousEndpointsWhitelist.contains(getRequestURI()))) {
+        String uri = getRequestURI();
+        if ((openEndpointsWhitelist.contains(uri)
+            || anonymousEndpointsWhitelist.contains(uri)) || isSwaggerURI(uri)) {
             setShouldDoRbac(false);
             logger.info(SKIP_RBAC, getRequestURI());
             return null;
         }
         setShouldDoRbac(true);
         return null;
+    }
+
+    private boolean isSwaggerURI(String uri) {
+        return uri.endsWith("/v2/api-docs");
     }
 
     private void setShouldDoRbac(boolean enableRbac) {

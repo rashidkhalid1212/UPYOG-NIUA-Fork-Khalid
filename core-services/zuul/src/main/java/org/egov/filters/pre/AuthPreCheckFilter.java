@@ -76,7 +76,8 @@ public class AuthPreCheckFilter extends ZuulFilter {
     @Override
     public Object run() {
         String authToken;
-        if (openEndpointsWhitelist.contains(getRequestURI())) {
+        String uri = getRequestURI();
+        if (openEndpointsWhitelist.contains(uri) || isSwaggerURI(uri)) {
             setShouldDoAuth(false);
             logger.info(OPEN_ENDPOINT_MESSAGE, getRequestURI());
             return null;
@@ -105,6 +106,10 @@ public class AuthPreCheckFilter extends ZuulFilter {
             setShouldDoAuth(true);
         }
         return null;
+    }
+
+    private boolean isSwaggerURI(String uri) {
+        return uri.endsWith("v2/api-docs");
     }
 
     private String getAuthTokenFromRequest() throws IOException {
